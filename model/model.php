@@ -5,7 +5,7 @@ class connection{
     public function __construct()
     {
         try{
-            $this->db = new PDO('mysql:host=localhost','root','welcome');
+            $this->db = new PDO('mysql:host=localhost','dckap','Dckap2023Ecommerce');
         }
         catch (exception $e){;
             die("connnection error".$e->getMessage());
@@ -27,29 +27,27 @@ class model extends connection{
         return $this->db->query("SHOW DATABASES")->fetchAll  (PDO::FETCH_OBJ);
     }
 
-    public  function creatingTableOnDb($table){
+    public  function creatingTableOnDb($dbname,$table_name){
         try {
-            $dbname =$table['dbname'];
-            $table_name=$table['Table_Name'];
-            var_dump($table);
+                $this->db->query("
+        USE $dbname;
+        CREATE TABLE $table_name (
+        id int auto_increment,
+        primary key (id)
+        )
+        ");
 
-            $sql =("USE '$dbname';
-            create table $table_name(
-                id int not null AUTO_INCREMENT,
-                primary key(id)
-            );");
-
-            $this->db->query($sql);
-            echo "oki";
         }
         catch (PDOException $e){
             die($e->getMessage());
         }
+    }
 
-
-
-
-
+    public function addcolumn($dbname,$table_name,$table_column,$table_datatype){
+        $this->db->query("
+        USE $dbname;
+        ALTER TABLE $table_name ADD COLUMN $table_column $table_datatype;
+        ");
     }
 }
 

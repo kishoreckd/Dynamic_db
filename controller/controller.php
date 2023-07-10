@@ -23,6 +23,7 @@ class controller{
         if ($DbName){
             var_dump($DbName);
                     $this->model->createDb($DbName['dbname']);
+                    header("location:/");
 
         }
         else{
@@ -31,15 +32,28 @@ class controller{
 
     }
 
-//
-//    /**This function creates table on db*
-//     * @param $table
-//     */
+
+    /**This function creates table on db*
+     * @param $table
+     */
     public function create_table($table)
     {
         if ($table){
-//            var_dump($table);
-                       $this->model->creatingTableOnDb($table);
+            var_dump($table);
+            $dbname =$table['dbname'];
+            $table_name=$table['Table_Name'];
+
+            $this->model->creatingTableOnDb($dbname,$table_name);
+
+            $table_column =$table['column_name'];
+            $table_datatype =$table['data_type'];
+            $count =count($table['column_name']);
+
+            for ($i=0;$i<$count;$i++){
+                $this->model->addcolumn($dbname,$table_name,$table_column[$i],$table_datatype[$i]);
+
+            }
+
 
         }
         else{
