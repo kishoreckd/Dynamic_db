@@ -26,9 +26,27 @@ class controller{
 
         }
         else{
-            require "view/createdb.view.php";
+            require "view/create_db.view.php";
         }
 
+    }
+
+//
+//    /**This function creates table on db*
+//     * @param $table
+//     */
+    public function create_table($table)
+    {
+        if ($table){
+//            var_dump($table);
+                       $this->model->creatingTableOnDb($table);
+
+        }
+        else{
+           $databaseList=$this->model->gettingDatabaseList();
+//           var_dump($databaseList);
+            require "view/create_table.view.php";
+        }
     }
 
 }
