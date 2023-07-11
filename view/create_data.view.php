@@ -37,6 +37,7 @@
             $("#table_name").change(function () {
                 var table =$("#table_name").val();
                 var  dbname =$("#table_name").attr("class");
+                console.log(table,dbname)
                 $.ajax({
                     url:'index.php',
                     method:'post',
@@ -44,8 +45,10 @@
                 }).done(function (column) {
                     console.log(column)
                   column=JSON.parse(column)
+                    $('#columndata').empty()
+
                     column.forEach(function (columns) {
-                        $('#columndata').append(`<label>${columns.column_name}</label>`+`<input class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name=${columns.column_name} type="text">`)
+                        $('#columndata').append(`<label>${columns.column_name}</label>`+`<input class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="columnname[]" type="text">`)
                     })
                 })
             })

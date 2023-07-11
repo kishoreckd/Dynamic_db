@@ -4,6 +4,7 @@ require 'model/model.php';
 
 class controller{
     public $model;
+    public $lastID;
     public function __construct()
     {
         $this->model = new model();
@@ -72,6 +73,25 @@ class controller{
     /**creating data dynamically by getting values in db**/
     public  function  create_data($datas){
         if ($datas){
+            $dbname =$datas['dbname'];
+            $tablename = $datas['table_name'];
+            $columnName = $datas['columnname'];
+
+//
+            $table=$this->model->gettingcolumndb($datas['table_name'],$datas['dbname']);
+            for($i=0;$i<count($table);$i++){
+                if($i == 1){
+                    $this->lastID = $this->model->insertingdata($dbname,$tablename,$table[$i]->column_name,$columnName[$i]);
+                }
+                else{
+                    $this->model->updateData($dbname,$tablename,$table[$i]->column_name,$columnName[$i],$this->lastID);
+                }
+            }
+////            var_dump(count($table));
+//            for ($i=0;$i<=count($table);$i++){
+//                $column_name=$table[$i]->column_name;
+//                $this->model->insertingdata($dbname,$datas['table_name'],$column_name,$datas['columnname'][$i]);
+//            }
 
         }
         else{
@@ -92,9 +112,6 @@ class controller{
         echo json_encode($column);
 
     }
-
-
-
 
 }
 
