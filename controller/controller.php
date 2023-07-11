@@ -82,7 +82,6 @@ class controller{
     }
 
     function gettingtable($dbname){
-        var_dump($dbname);
        $tablename= $this->model->gettableondb($dbname);
 //       var_dump($tablename);
       echo json_encode($tablename);

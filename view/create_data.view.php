@@ -17,6 +17,11 @@
                     data:'aid='+aid
                 }).done(function (tables) {
                     console.log(tables)
+                    tables=JSON.parse(tables)
+                    tables.forEach(function (table) {
+                        $('#table_name').append('<option>'+ table.tablesname + '</option>')
+
+                    })
                 })
             })
 
@@ -48,7 +53,7 @@
                         <label for="dbname" class="block text-l font-medium leading-6 text-gray-900">Table name</label>
 
                         <div class="mt-4 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                            <select name="table_name" id="dbname">
+                            <select name="table_name" id="table_name">
                                 <option value="">select</option>
                                     <option value=""></option>
                             </select>

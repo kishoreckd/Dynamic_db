@@ -66,7 +66,9 @@ class model extends connection{
     }
 
     public function gettableondb($dbname){
-        $tablename=$this->db->query("SHOW TABLES FROM $dbname")->fetchAll(PDO::FETCH_OBJ);
+        $tablename=$this->db->query("SELECT TABLE_NAME AS tablesname 
+        FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_SCHEMA = '$dbname';")->fetchAll(PDO::FETCH_OBJ);
         return $tablename;
     }
 }
