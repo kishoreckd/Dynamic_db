@@ -75,10 +75,10 @@ class model extends connection{
 
 
     public function gettingcolumndb($tablename,$dbname){
-        $column=$this->db->query("SELECT `COLUMN_NAME` 
+        $column=$this->db->query("SELECT column_name 
 FROM `INFORMATION_SCHEMA`.`COLUMNS` 
-WHERE `TABLE_SCHEMA`='$tablename' 
-    AND `TABLE_NAME`='$dbname'")->fetchAll(PDO::FETCH_OBJ);
+WHERE `TABLE_SCHEMA`='$dbname' 
+    AND `TABLE_NAME`='$tablename'")->fetchAll(PDO::FETCH_OBJ);
         return $column;
     }
 }

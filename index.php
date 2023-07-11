@@ -16,16 +16,12 @@ $router->post('/create_table', 'create_table');
 $router->post('/create_data', 'create_data');
 
 if(isset($_POST['aid'])){
-    $k =$_POST['aid'];
     $controllers->gettingtable($_POST['aid']);
 //    echo json_encode($k);
 
 }
 if(isset($_POST['table']) ){
-    $k =$_POST['table'];
-    $l=$_POST;
     $controllers->gettingcolumn($_POST);
-    echo json_encode($l);
 
 }
 

@@ -19,7 +19,7 @@
                     console.log(tables)
                     tables=JSON.parse(tables)
                     $('#table_name').empty()
-
+                    $('#table_name').append(`<option>select</option>`);
                     tables.forEach(function (table) {
                         $('#table_name').append(`<option>${table.tablesname}</option>`);
                         $('#table_name').addClass(`${table.TABLE_SCHEMA}`);
@@ -30,6 +30,8 @@
         })
     </script>
 
+
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#table_name").change(function () {
@@ -39,15 +41,11 @@
                     url:'index.php',
                     method:'post',
                     data:{ table: table, dbname: dbname },
-                    // data:'table='+table+','+"dbname="+dbname
-                    // data:'table='+table & 'user_id=' + dbname,
-
-                    // data: { table: table,'dbname': dbname,}
                 }).done(function (column) {
                     console.log(column)
-                    column=JSON.parse(column)
-                    tables.forEach(function (column) {
-                        $('#column').append('<option id="table.tablesname">'+ table.tablesname + '</option>')
+                  column=JSON.parse(column)
+                    column.forEach(function (columns) {
+                        $('#columndata').append(`<label>${columns.column_name}</label>`+`<input class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name=${columns.column_name} type="text">`)
                     })
                 })
             })
@@ -85,7 +83,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mt-4" id ="column">
+                    <div class="mt-4" id ="columndata">
 
                     </div>
                 </div>

@@ -89,7 +89,6 @@ class controller{
     public function gettingcolumn($tablename){
 
         $column = $this->model->gettingcolumndb($tablename['table'],$tablename['dbname']);
-
         echo json_encode($column);
 
     }
