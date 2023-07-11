@@ -15,16 +15,23 @@ class controller{
             require 'view/home.view.php';
     }
 
-    /**This function creates DB Dynamically by getting input from UI*
+    /**This function creates DB Dynamically by getting input from UI
+     and check if the database already exists*
      * @param $DbName
      */
     public function create_database($DbName){
 
+        unset($_SESSION['db_name_exists']);
         if ($DbName){
-            var_dump($DbName);
-                    $this->model->createDb($DbName['dbname']);
-                    header("location:/");
-
+            $db_Validate = $this->model->dbValidation($DbName['dbname']);
+            if(!isset($db_Validate[0]['SCHEMA_NAME'])){
+                $this->model->createDb($DbName['dbname']);
+                header('location: /');
+            }
+            else{
+                $_SESSION['db_name_exists']=$DbName['dbname'];
+                require "view/create_db.view.php";
+            }
         }
         else{
             require "view/create_db.view.php";
@@ -39,10 +46,9 @@ class controller{
     public function create_table($table)
     {
         if ($table){
-            var_dump($table);
             $dbname =$table['dbname'];
             $table_name=$table['Table_Name'];
-
+//            $this->model->tableValidation($table_name);
             $this->model->creatingTableOnDb($dbname,$table_name);
 
             $table_column =$table['column_name'];
@@ -50,17 +56,42 @@ class controller{
             $count =count($table['column_name']);
 
             for ($i=0;$i<$count;$i++){
-                $this->model->addcolumn($dbname,$table_name,$table_column[$i],$table_datatype[$i]);
-
+                if ($table_column[$i] !='' && $table_datatype[$i] != ''){
+                    $this->model->addcolumn($dbname,$table_name,$table_column[$i],$table_datatype[$i]);
+                }
             }
-
+            header("location:/");
 
         }
         else{
            $databaseList=$this->model->gettingDatabaseList();
-//           var_dump($databaseList);
             require "view/create_table.view.php";
         }
     }
 
+    /**creating data dynamically by getting values in db**/
+    public  function  create_data($datas){
+        if ($datas){
+
+        }
+        else{
+            $databaseList=$this->model->gettingDatabaseList();
+
+            require "view/create_data.view.php";
+        }
+    }
+
+    function gettingtable($dbname){
+        var_dump($dbname);
+       $tablename= $this->model->gettableondb($dbname);
+//       var_dump($tablename);
+      echo json_encode($tablename);
+//        $databaseList=$this->model->gettingDatabaseList();
+
+    }
+
+
+
 }
+
+

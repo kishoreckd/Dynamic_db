@@ -63,6 +63,9 @@ class router {
                         case 'create_table':
                             $this->controller->create_table($_POST);
                             break;
+                        case 'create_data':
+                            $this->controller->create_data($_POST);
+                            break;
                         default :
                             $this->controller->index();
                     }

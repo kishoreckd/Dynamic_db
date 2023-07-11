@@ -11,6 +11,13 @@
 <body class="h-full">
 
 <form action="/create_database" method="post" enctype="multipart/form-data">
+    <div class="bg-stone-200 w-2/4 ml-80 items-center">
+        <?php if(isset($_SESSION['db_name_exists'])) :?>
+            <h2 class="  text-xl text-red-500 text-center font-semibold" >This Database name ("<?php echo $_SESSION['db_name_exists'] ?>")   already exists</h2>
+        <?php endif; ?>
+    </div>
+
+    <h2></h2>
     <div class="space-y-12">
         <div class="border-b border-gray-900/10 pb-12">
             <h2 class="mt-7 text-2xl font-semibold leading-7 text-gray-900">Create Your Database</h2>
@@ -31,7 +38,7 @@
         </div>
 
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-whitefont-bold py-2 px-4 rounded">add Music</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-whitefont-bold py-2 px-4 rounded">Create Database</button>
 </form>
 
 </body>

@@ -52,7 +52,7 @@
                 </tr>
                 <tr >
                     <td>
-                        <input class="m-2" name ="column_name[]" type="text" id="column_name[]" name="column[]" placeholder="enter column name">
+                        <input class="m-2" name ="column_name[]" type="text"  placeholder="enter column name">
                         <select class="" name="data_type[]" id="data_type">
                             <option value="int">INT</option>
                             <option value="varchar(255)">Text</option>
