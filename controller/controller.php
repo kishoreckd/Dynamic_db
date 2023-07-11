@@ -81,13 +81,19 @@ class controller{
         }
     }
 
-    function gettingtable($dbname){
+   public function gettingtable($dbname){
        $tablename= $this->model->gettableondb($dbname);
-//       var_dump($tablename);
       echo json_encode($tablename);
-//        $databaseList=$this->model->gettingDatabaseList();
+    }
+
+    public function gettingcolumn($tablename){
+
+        $column = $this->model->gettingcolumndb($tablename['table'],$tablename['dbname']);
+
+        echo json_encode($column);
 
     }
+
 
 
 

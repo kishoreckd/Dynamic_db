@@ -18,9 +18,36 @@
                 }).done(function (tables) {
                     console.log(tables)
                     tables=JSON.parse(tables)
-                    tables.forEach(function (table) {
-                        $('#table_name').append('<option>'+ table.tablesname + '</option>')
+                    $('#table_name').empty()
 
+                    tables.forEach(function (table) {
+                        $('#table_name').append(`<option>${table.tablesname}</option>`);
+                        $('#table_name').addClass(`${table.TABLE_SCHEMA}`);
+                    })
+                })
+            })
+
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#table_name").change(function () {
+                var table =$("#table_name").val();
+                var  dbname =$("#table_name").attr("class");
+                $.ajax({
+                    url:'index.php',
+                    method:'post',
+                    data:{ table: table, dbname: dbname },
+                    // data:'table='+table+','+"dbname="+dbname
+                    // data:'table='+table & 'user_id=' + dbname,
+
+                    // data: { table: table,'dbname': dbname,}
+                }).done(function (column) {
+                    console.log(column)
+                    column=JSON.parse(column)
+                    tables.forEach(function (column) {
+                        $('#column').append('<option id="table.tablesname">'+ table.tablesname + '</option>')
                     })
                 })
             })
@@ -54,10 +81,12 @@
 
                         <div class="mt-4 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                             <select name="table_name" id="table_name">
-                                <option value="">select</option>
-                                    <option value=""></option>
+                                    <option selected value="">select</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="mt-4" id ="column">
+
                     </div>
                 </div>
             </div>

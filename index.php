@@ -21,6 +21,13 @@ if(isset($_POST['aid'])){
 //    echo json_encode($k);
 
 }
+if(isset($_POST['table']) ){
+    $k =$_POST['table'];
+    $l=$_POST;
+    $controllers->gettingcolumn($_POST);
+    echo json_encode($l);
+
+}
 
 
 
